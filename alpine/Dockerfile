@@ -2,7 +2,7 @@ FROM alpine:edge
 
 ENV gpp_version 6.4.0-r5
 ENV build_packages "git autoconf automake libtool g++=${gpp_version} make"
-ENV library_packages "boost-dev libressl-dev db-dev miniupnpc-dev protobuf-dev libqrencode-dev libevent-dev miniupnpc-dev"
+ENV library_packages "boost-dev libressl-dev db-dev protobuf-dev libqrencode-dev libevent-dev"
 ENV JOBS 4
 
 RUN apk --no-cache --update add --virtual .build ${build_packages} && \
