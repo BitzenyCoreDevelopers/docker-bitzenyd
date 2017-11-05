@@ -7,7 +7,7 @@ ENV JOBS 4
 
 RUN apk --no-cache --update add --virtual .build ${build_packages} && \
 	apk --no-cache --update add ${library_packages} && \
-	git clone -b fix-boost --depth 1 https://github.com/onokatio/bitzeny && \
+	git clone -b z1.2.x --depth 1 https://github.com/onokatio/bitzeny && \
 	cd bitzeny && \
   ./autogen.sh && \
 	sed -e 's/wait $am_sleep/:/' configure > configure.new && \
