@@ -18,7 +18,7 @@ RUN apk --no-cache --update add --virtual .build ${build_packages} && \
     make install_lib install_include && \
     cd ../.. && \
     rm -rf db-4.8.30.NC && \
-    git clone --depth 1 https://github.com/BitzenyCoreDevelopers/bitzeny.git && \
+    git clone https://github.com/BitzenyCoreDevelopers/bitzeny.git && \
     cd bitzeny && \
     git checkout "$REF" && \
     ./autogen.sh && \
