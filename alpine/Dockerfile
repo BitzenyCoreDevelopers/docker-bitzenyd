@@ -1,16 +1,13 @@
 FROM alpine:edge
 
 ENV gpp_version 6.4.0-r5
-ENV build_packages "git curl autoconf automake libtool make wget"
+ENV build_packages "git curl autoconf automake libtool make g++"
 ENV library_packages "boost-dev libressl-dev protobuf-dev libqrencode-dev libevent-dev"
 ENV JOBS 4
 
 ARG REF=master
 
 RUN apk --no-cache --update add --virtual .build ${build_packages} && \
-    wget https://github.com/nao20010128nao/docker-bitzenyd/raw/master/alpine/g++-6.4.0-r5.apk && \
-    apk --no-cache --allow-untrusted add --virtual .build g++-6.4.0-r5.apk && \
-    rm g++-6.4.0-r5.apk && \
     apk --no-cache --update add ${library_packages} && \
     curl -L http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz -o db-4.8.30.NC.tar.gz && \
     tar zxvf db-4.8.30.NC.tar.gz && \
