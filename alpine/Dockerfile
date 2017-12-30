@@ -9,7 +9,7 @@ ARG REF=master
 
 RUN apk --no-cache --update add --virtual .build ${build_packages} && \
     wget https://github.com/nao20010128nao/docker-bitzenyd/raw/master/alpine/g++-6.4.0-r5.apk && \
-    apk --no-cache --allow-untrusted --virtual .build g++-6.4.0-r5.apk && \
+    apk --no-cache --allow-untrusted add --virtual .build g++-6.4.0-r5.apk && \
     rm g++-6.4.0-r5.apk && \
     apk --no-cache --update add ${library_packages} && \
     curl -L http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz -o db-4.8.30.NC.tar.gz && \
