@@ -19,7 +19,10 @@ env:
   - LATEST=debian-z1.2.1
   - DEBIAN=debian-z1.2.1
   - ALPINE=alpine-z1.2.1
-
+matrix:
+  exclude:
+  - env: REF=z1.1.0 TAG=alpine
+ 
 notifications:
   email: false
 
