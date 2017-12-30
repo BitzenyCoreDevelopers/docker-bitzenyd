@@ -19,8 +19,8 @@ before_script:
   - docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
 
 script:
-  - docker build --build-arg REF=$REF -t "nao20010128nao/docker-bitzenyd:${TAG}-${REF}" ${TAG}/
-  - docker push "nao20010128nao/docker-bitzenyd:${TAG}-${REF}"
-  - [ "$LATEST" == "${TAG}-${REF}" ] && docker tag "nao20010128nao/docker-bitzenyd:${TAG}-${REF}" "nao20010128nao/docker-bitzenyd"
-  - [ "$LATEST" == "${TAG}-${REF}" ] &&  "nao20010128nao/docker-bitzenyd"
+  - docker build --build-arg REF=$REF -t "nao20010128nao/docker-bitzenyd:$TAG-$REF" ${TAG}/
+  - docker push "nao20010128nao/docker-bitzenyd:$TAG-$REF"
+  - "[ \"$LATEST\" == \"${TAG}-${REF}\" ] && docker tag nao20010128nao/docker-bitzenyd:$TAG-$REF nao20010128nao/docker-bitzenyd"
+  - "[ \"$LATEST\" == \"${TAG}-${REF}\" ] && docker push nao20010128nao/docker-bitzenyd"
 
