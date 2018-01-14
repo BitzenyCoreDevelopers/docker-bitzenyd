@@ -1,7 +1,7 @@
 FROM ubuntu:14.04
 
 ENV DEBIAN_FRONTEND=noninteractive
-
+ARG REF=master
 
 RUN apt-get update && \
   apt-get upgrade -y && \
@@ -15,8 +15,9 @@ RUN apt-get update && \
   add-apt-repository -y ppa:bitcoin/bitcoin && \
   apt-get update && \
   apt-get install -y libdb4.8-dev libdb4.8++-dev && \
-  git clone https://github.com/bitzeny/bitzeny.git && \
+  git clone https://github.com/BitzenyCoreDevelopers/bitzeny.git && \
   cd bitzeny && \
+  git checkout "$REF" && \
   ./autogen.sh && \
   ./configure --prefix=/usr --without-miniupnpc --without-gui --disable-tests && \
   make && make install && \
@@ -26,7 +27,7 @@ RUN apt-get update && \
     autoconf \
     pkg-config \
     software-properties-common \
-  git && \
+    git && \
   apt-get clean -y
 
 VOLUME /root/.bitzeny

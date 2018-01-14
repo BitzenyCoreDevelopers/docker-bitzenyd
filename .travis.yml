@@ -1,0 +1,41 @@
+sudo: required
+services:
+- docker
+env:
+  matrix:
+  - REF=master TAG=debian
+  - REF=master TAG=alpine
+  - REF=z1.3.0test1 TAG=debian
+  - REF=z1.3.0test1 TAG=alpine
+  - REF=z1.2.1 TAG=debian
+  - REF=z1.2.1 TAG=alpine
+  - REF=z1.2.0 TAG=debian
+  - REF=z1.2.0 TAG=alpine
+  - REF=z1.1.0 TAG=debian
+  - REF=z1.1.0 TAG=alpine
+  global:
+  - secure: q3ecLQ5kabU9U3vfuetLJwjlWiUl3oQHoRWj/Z6oHr1pSa9BOYsNwi7XZLlzNobGSlYZjcBL99ZMTqKarXWCsSqgyzTViar2V0E+qdzjEIJ43QCIQrUW+qI2x4RRhaich0IQQlOSlQ5hChgh+lK/2gthUe89TegbBTqxT/S5b3eTf8V9YOue6+19PBXS+duHT7LjHnP7XSffzgwLNbQAcc9c6WA2Cv/XpLYaQzn7X/i0vs+UHikS8hvjnTstW5NDXBRgxMsiAw/GLRJ5uh0R2rv055xwbakWE2L1rhLyGpk6dhCPDSPEAbbLX65XeIkxsc2aVM7o8Hl9waHDLq0A2pr/bk910atdENGSxXiBCo/ZBEY1NfMbacUR4zwYM2///sddxdQI/BQxl1q/T+K31OGhY1NtaAyT0FMUdCBS8f0v6CJJRBIGIzuMKpkEvo5xlCr0/n2+5AQadIU+x17jnPA5tOfo0n01zcZqDk1wK89P926NLLJ/IO4WREX397p4LLRQ0KRKJ0Nhn4QHhZD+mi9sz/xXbMTSvJXAe56kdbdbm18pDOUolr+IhP4uauwATZ9AoKUDFmrwO9kK9Ea1eeZxxOlEQTszGECLJDR9M+dB4oux1onNfxMz5oL1K2GqvJSAeinnQJLat8lD6UiXGmWXItraHa9ogbmrZOIQK+U=
+  - secure: e+5hzemB+n9cgZOL0OzF2txozKHPm0t1YxiVDYGy/u18TOT3zpd+IA0zIK3GAhiHvhLBQJXv9qnCogEiWyBlbT4iAwgTbPmgC5xR3TOR+jLPO93fxr6uimJG8GGYSdAb+du9s+B0H34DXg7/JwkiOgZW3x8QgarKwUMPVbhChpPttwWLAtVnfE1St/kZNH5hTcwimJSx6RcuwVW2dFfceyfjjUcVsxC2zKvvq1cgCzlXDqE5y5pmV5msLkNmGIjG2vzCh+Y+KycAPn16BZEx0Gd6YxB9gYfxCPYjfhfebo+5UzJY1Xv52O/ud23kfsy0ZYEZSButdp7tambmsjQKGwIvpgynFblNMeZCmRZfaQ72WoaCvfxEk0bUAZ+Ew815I6T5fq5UCq/fW4db2OYc4tSQD07NwvYZJiXhhyzBuQNg0lPTO4QCOuLi7kCp/imniO7soADNkUmrDm4FxclqCVipiV9o7KZlUyTQJba5GlG8D2hczpg23ElUa6RmnYCKNuyvpjM+RltRbPchIRHezKro0E7WUND+Uojn2FXPA/OB9P4B2e2UAHJWxTwrrkzultXSb1pGoOKN45eazaO5LUN2qb7jYC9Nh+cwo6ltPacbVH64c3w3UV6RTi6dygaX04xlsRqNrbc5IZVphZVjJRL/Xfl/eWmd/3Y46+7Jy2w=
+  - LATEST=debian-z1.2.1
+  - DEBIAN=debian-z1.2.1
+  - ALPINE=alpine-z1.2.1
+matrix:
+  exclude:
+  - env: REF=z1.1.0 TAG=alpine
+ 
+notifications:
+  email: false
+
+before_script:
+  - docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
+
+script:
+  - docker build --build-arg REF=$REF -t "nao20010128nao/docker-bitzenyd:$TAG-$REF" ${TAG}/
+  - docker push "nao20010128nao/docker-bitzenyd:$TAG-$REF"
+  - "[ \"$LATEST\" == \"${TAG}-${REF}\" ] && docker tag nao20010128nao/docker-bitzenyd:$TAG-$REF nao20010128nao/docker-bitzenyd || true"
+  - "[ \"$LATEST\" == \"${TAG}-${REF}\" ] && docker push nao20010128nao/docker-bitzenyd || true"
+  - "[ \"$DEBIAN\" == \"${TAG}-${REF}\" ] && docker tag nao20010128nao/docker-bitzenyd:$TAG-$REF nao20010128nao/docker-bitzenyd:debian || true"
+  - "[ \"$DEBIAN\" == \"${TAG}-${REF}\" ] && docker push nao20010128nao/docker-bitzenyd:debian || true"
+  - "[ \"$ALPINE\" == \"${TAG}-${REF}\" ] && docker tag nao20010128nao/docker-bitzenyd:$TAG-$REF nao20010128nao/docker-bitzenyd:alpine || true"
+  - "[ \"$ALPINE\" == \"${TAG}-${REF}\" ] && docker push nao20010128nao/docker-bitzenyd:alpine || true"
+

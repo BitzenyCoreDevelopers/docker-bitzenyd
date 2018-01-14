@@ -31,5 +31,5 @@ server=1
 3. Run docker container with volume option
 
 ```
-docker run --name bitzenyd -d -v ./bitzeny-data:/root/.bitzeny onokatio/docker-bitzenyd:alpine
+docker run --name bitzenyd -d -v ./bitzeny-data:/root/.bitzeny -p 9252:9252 --network host nao20010128nao/docker-bitzenyd:alpine
 ```
