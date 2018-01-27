@@ -5,6 +5,8 @@ env:
   matrix:
   - REF=master TAG=debian
   - REF=master TAG=alpine
+  - REF=z2.0.0 TAG=debian
+  - REF=z2.0.0 TAG=alpine
   - REF=z1.3.0test1 TAG=debian
   - REF=z1.3.0test1 TAG=alpine
   - REF=z1.2.1 TAG=debian
