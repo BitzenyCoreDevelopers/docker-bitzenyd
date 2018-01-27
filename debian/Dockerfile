@@ -9,6 +9,7 @@ RUN apt-get update && \
     libtool autotools-dev autoconf \
     libssl-dev \
     libboost-all-dev \
+    libevent-dev \
     pkg-config \
     software-properties-common \
     git && \
