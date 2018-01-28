@@ -10,7 +10,7 @@ ARG REF=master
 RUN apk --no-cache --update add --virtual .build ${build_packages} && \
     apk --no-cache --update add ${library_packages} && \
     curl -L http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz -o db-4.8.30.NC.tar.gz && \
-    tar zxvf db-4.8.30.NC.tar.gz && \
+    tar zxvf db-4.8.30.NC.tar.gz 2>&1 | wc && \
     cd db-4.8.30.NC && \
     cd build_unix && \
     ../dist/configure --disable-shared --enable-cxx --disable-replication --with-pic --prefix=/usr/local/ && \
