@@ -3,8 +3,6 @@ services:
 - docker
 env:
   matrix:
-  - REF=master TAG=debian
-  - REF=master TAG=alpine
   - REF=z2.0.0a TAG=debian
   - REF=z2.0.0a TAG=alpine
   - REF=z1.3.0test1 TAG=debian
