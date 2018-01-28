@@ -1,4 +1,4 @@
-FROM alpine AS builder
+FROM alpine AS build
 
 ENV gpp_version 6.4.0-r5
 ENV build_packages "git curl autoconf automake libtool make g++"
