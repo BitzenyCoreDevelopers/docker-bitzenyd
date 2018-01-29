@@ -31,11 +31,11 @@ script:
      docker tag nao20010128nao/docker-bitzenyd:$TAG-$REF nao20010128nao/docker-bitzenyd ;
      docker push nao20010128nao/docker-bitzenyd ;
    fi'
- - 'if [ "nao20010128nao/docker-bitzenyd" == "$TRAVIS_REPO_SLUG" ] && [ "$DEBIAN" == "${TAG}-${REF}" ] ; then
+- 'if [ "nao20010128nao/docker-bitzenyd" == "$TRAVIS_REPO_SLUG" ] && [ "$DEBIAN" == "${TAG}-${REF}" ] ; then
      docker tag nao20010128nao/docker-bitzenyd:$TAG-$REF nao20010128nao/docker-bitzenyd:debian ;
      docker push nao20010128nao/docker-bitzenyd:debian ;
    fi'
- - 'if [ "nao20010128nao/docker-bitzenyd" == "$TRAVIS_REPO_SLUG" ] && [ "$ALPINE" == "${TAG}-${REF}" ] ; then
+- 'if [ "nao20010128nao/docker-bitzenyd" == "$TRAVIS_REPO_SLUG" ] && [ "$ALPINE" == "${TAG}-${REF}" ] ; then
      docker tag nao20010128nao/docker-bitzenyd:$TAG-$REF nao20010128nao/docker-bitzenyd:alpine ;
      docker push nao20010128nao/docker-bitzenyd:alpine ;
    fi'
