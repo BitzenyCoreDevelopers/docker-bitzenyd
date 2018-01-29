@@ -26,7 +26,9 @@ before_script:
    fi'
 script:
 - docker build --build-arg REF=$REF -t "nao20010128nao/docker-bitzenyd:$TAG-$REF" ${TAG}/
-- docker push "nao20010128nao/docker-bitzenyd:$TAG-$REF"
+- 'if [ "nao20010128nao/docker-bitzenyd" == "$TRAVIS_REPO_SLUG" ]; then 
+     docker push "nao20010128nao/docker-bitzenyd:$TAG-$REF" ;
+   fi'
 - 'if [ "nao20010128nao/docker-bitzenyd" == "$TRAVIS_REPO_SLUG" ] && [ "$LATEST" == "${TAG}-${REF}" ] ; then
      docker tag nao20010128nao/docker-bitzenyd:$TAG-$REF nao20010128nao/docker-bitzenyd ;
      docker push nao20010128nao/docker-bitzenyd ;
