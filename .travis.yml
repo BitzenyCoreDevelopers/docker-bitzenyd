@@ -21,20 +21,21 @@ env:
 notifications:
   email: false
 before_script:
-- docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
+- 'if [ "nao20010128nao/docker-bitzenyd" == "$TRAVIS_REPO_SLUG" ]; then
+     docker login -u "$DOCKER_USER" -p "$DOCKER_PASS" ;
+   fi'
 script:
-- docker build --build-arg REF=$REF -t "nao20010128nao/docker-bitzenyd:$TAG-$REF"
-  ${TAG}/
+- docker build --build-arg REF=$REF -t "nao20010128nao/docker-bitzenyd:$TAG-$REF" ${TAG}/
 - docker push "nao20010128nao/docker-bitzenyd:$TAG-$REF"
-- '[ "$LATEST" == "${TAG}-${REF}" ] && docker tag nao20010128nao/docker-bitzenyd:$TAG-$REF
-  nao20010128nao/docker-bitzenyd || true'
-- '[ "$LATEST" == "${TAG}-${REF}" ] && docker push nao20010128nao/docker-bitzenyd
-  || true'
-- '[ "$DEBIAN" == "${TAG}-${REF}" ] && docker tag nao20010128nao/docker-bitzenyd:$TAG-$REF
-  nao20010128nao/docker-bitzenyd:debian || true'
-- '[ "$DEBIAN" == "${TAG}-${REF}" ] && docker push nao20010128nao/docker-bitzenyd:debian
-  || true'
-- '[ "$ALPINE" == "${TAG}-${REF}" ] && docker tag nao20010128nao/docker-bitzenyd:$TAG-$REF
-  nao20010128nao/docker-bitzenyd:alpine || true'
-- '[ "$ALPINE" == "${TAG}-${REF}" ] && docker push nao20010128nao/docker-bitzenyd:alpine
-  || true'
+- 'if [ "nao20010128nao/docker-bitzenyd" == "$TRAVIS_REPO_SLUG" ] && [ "$LATEST" == "${TAG}-${REF}" ] ; then
+     docker tag nao20010128nao/docker-bitzenyd:$TAG-$REF nao20010128nao/docker-bitzenyd ;
+     docker push nao20010128nao/docker-bitzenyd ;
+   fi'
+ - 'if [ "nao20010128nao/docker-bitzenyd" == "$TRAVIS_REPO_SLUG" ] && [ "$DEBIAN" == "${TAG}-${REF}" ] ; then
+     docker tag nao20010128nao/docker-bitzenyd:$TAG-$REF nao20010128nao/docker-bitzenyd:debian ;
+     docker push nao20010128nao/docker-bitzenyd:debian ;
+   fi'
+ - 'if [ "nao20010128nao/docker-bitzenyd" == "$TRAVIS_REPO_SLUG" ] && [ "$ALPINE" == "${TAG}-${REF}" ] ; then
+     docker tag nao20010128nao/docker-bitzenyd:$TAG-$REF nao20010128nao/docker-bitzenyd:alpine ;
+     docker push nao20010128nao/docker-bitzenyd:alpine ;
+   fi'
